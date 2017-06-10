@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.Map;
 
 import main.DatabaseException;
+import main.DatabaseObject;
 import main.IDatabaseConnection;
 
 import java.sql.Connection;
@@ -58,6 +59,12 @@ public class MySqlDatabaseConnection implements IDatabaseConnection{
 		} catch (SQLException e) {
 			throw new DatabaseException(e);
 		}
+	}
+	
+	@Override
+	public void persistObject(String tableName, DatabaseObject object) throws DatabaseException {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private Connection connectToDatabase() throws DatabaseException {

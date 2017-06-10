@@ -22,4 +22,11 @@ public interface IDatabaseConnection {
 	 * @throws DatabaseException
 	 */
 	public void query(String query) throws DatabaseException;
+	
+	/**
+	 * Persist an object in a table
+	 * 
+	 * @throws DatabaseException
+	 */
+	public void persistObject(final String tableName, final DatabaseObject object) throws DatabaseException;
 }
