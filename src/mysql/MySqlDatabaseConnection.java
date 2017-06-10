@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
 
+import main.DatabaseException;
 import main.IDatabaseConnection;
 
 import java.sql.Connection;
@@ -24,7 +25,7 @@ public class MySqlDatabaseConnection implements IDatabaseConnection{
 	}
 
 	@Override
-	public void createTable(final String tableName, final Map<String, MySqlColumnType> tableColumns) throws SQLException {
+	public void createTable(final String tableName, final Map<String, MySqlColumnType> tableColumns) throws DatabaseException {
 		Connection databaseConnection = connectToDatabase();
 		int numberOfKeys = tableColumns.size();
 		int i = 0;
@@ -39,18 +40,31 @@ public class MySqlDatabaseConnection implements IDatabaseConnection{
 		}
 		statement += ")";
 
-	    PreparedStatement preparedStmt = databaseConnection.prepareStatement(statement);
-		preparedStmt.execute();
+		try {
+			PreparedStatement preparedStmt = databaseConnection.prepareStatement(statement);
+			preparedStmt.execute();
+		} catch (SQLException e) {
+			throw new DatabaseException(e);
+		}
 	}
 
 	@Override
-	public void query(String query) throws SQLException {
+	public void query(String query) throws DatabaseException {
 		Connection databaseConnection = connectToDatabase();
-		Statement statement = databaseConnection.createStatement();
-		ResultSet results = statement.executeQuery(query);
+		Statement statement;
+		try {
+			statement = databaseConnection.createStatement();
+			ResultSet results = statement.executeQuery(query);
+		} catch (SQLException e) {
+			throw new DatabaseException(e);
+		}
 	}
 
-	private Connection connectToDatabase() throws SQLException {
-		return DriverManager.getConnection(this.databasePath, this.databaseUsername, this.databasePassword);
+	private Connection connectToDatabase() throws DatabaseException {
+		try {
+			return DriverManager.getConnection(this.databasePath, this.databaseUsername, this.databasePassword);
+		} catch (SQLException e) {
+			throw new DatabaseException(e);
+		}
 	}
 }
