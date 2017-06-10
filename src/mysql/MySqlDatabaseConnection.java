@@ -2,6 +2,7 @@ package mysql;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
@@ -23,12 +24,12 @@ public class MySqlDatabaseConnection implements IDatabaseConnection{
 	}
 
 	@Override
-	public void createTable(final Map<String, ColumnType> tableColumns) throws SQLException {
+	public void createTable(final String tableName, final Map<String, MySqlColumnType> tableColumns) throws SQLException {
 		Connection databaseConnection = connectToDatabase();
 		int numberOfKeys = tableColumns.size();
 		int i = 0;
 		
-		String statement = "create table if not exists scores (";
+		String statement = "create table if not exists" + tableName + " (";
 		for (String columnTitle: tableColumns.keySet()){
 			statement += columnTitle + " " + tableColumns.get(columnTitle).getColumnType();
 			if (i != numberOfKeys - 1){
