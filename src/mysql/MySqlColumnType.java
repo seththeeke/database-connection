@@ -1,6 +1,6 @@
 package mysql;
 
-public enum ColumnType {
+public enum MySqlColumnType {
 	DOUBLE ("DOUBLE"),
 	FLOAT ("FLOAT"),
 	STRING ("VARCHAR(255)"),
@@ -9,7 +9,7 @@ public enum ColumnType {
 	
 	private String columnType;
 	
-	ColumnType(final String columnType){
+	MySqlColumnType(final String columnType){
 		this.columnType = columnType;
 	}
 	
