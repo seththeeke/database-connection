@@ -43,8 +43,14 @@ public class MySqlDatabaseConnection implements IDatabaseConnection{
 		preparedStmt.execute();
 	}
 
+	@Override
+	public void query(String query) throws SQLException {
+		Connection databaseConnection = connectToDatabase();
+		Statement statement = databaseConnection.createStatement();
+		ResultSet results = statement.executeQuery(query);
+	}
+
 	private Connection connectToDatabase() throws SQLException {
 		return DriverManager.getConnection(this.databasePath, this.databaseUsername, this.databasePassword);
 	}
-
 }
