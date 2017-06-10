@@ -1,2 +1,2 @@
 # database-connection
-A Java interface that interacts with a database
+A Java implementation that is intended to interact with multiple types of databases
