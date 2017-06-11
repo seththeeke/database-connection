@@ -3,8 +3,12 @@ package mysql;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import main.DatabaseException;
@@ -31,7 +35,7 @@ public class MySqlDatabaseConnection implements IDatabaseConnection{
 		int numberOfKeys = tableColumns.size();
 		int i = 0;
 		
-		String statement = "create table if not exists" + tableName + " (";
+		String statement = "create table if not exists " + tableName + " (";
 		for (String columnTitle: tableColumns.keySet()){
 			statement += columnTitle + " " + tableColumns.get(columnTitle).getColumnType();
 			if (i != numberOfKeys - 1){
@@ -50,21 +54,69 @@ public class MySqlDatabaseConnection implements IDatabaseConnection{
 	}
 
 	@Override
-	public void query(String query) throws DatabaseException {
+	public List<DatabaseObject> query(String query) throws DatabaseException {
 		Connection databaseConnection = connectToDatabase();
-		Statement statement;
+		List<DatabaseObject> databaseObjects = new ArrayList<>();
+		
 		try {
-			statement = databaseConnection.createStatement();
+			Statement statement = databaseConnection.createStatement();
+			// Get results from query
 			ResultSet results = statement.executeQuery(query);
+			// Get metadata to determine columns
+			ResultSetMetaData metadata = results.getMetaData();
+			// Compile a list of column names from query
+			List<String> columnNames = new ArrayList<>();
+			for (int i = 1; i < metadata.getColumnCount() + 1; i++){
+				columnNames.add(metadata.getColumnName(i));
+			}
+			// Compile the query objects into database objects to return
+			while (results.next()){
+				Map<String, Object> rowProperties = new HashMap<>();
+				for (String columnName: columnNames){
+					rowProperties.put(columnName, results.getObject(columnName));
+				}
+				databaseObjects.add(new DatabaseObject(rowProperties));
+			}
+			
 		} catch (SQLException e) {
 			throw new DatabaseException(e);
 		}
+		
+		return databaseObjects;
 	}
 	
 	@Override
-	public void persistObject(String tableName, DatabaseObject object) throws DatabaseException {
-		// TODO Auto-generated method stub
+	public void persistObject(String tableName, DatabaseObject object) throws DatabaseException {		Connection databaseConnection = connectToDatabase();
+		String statement = " insert into " + tableName + " (";
+		String values = " values (";
+		Map<String, Object> properties = object.getProperties();
+		int numberOfKeys = properties.size();
+		int i = 0;
 		
+		for (String column: properties.keySet()){
+			statement += column;
+			if (i != numberOfKeys - 1){
+				statement += ", ";
+				values += "?, ";
+			}
+			i++;
+		}
+		statement += ")";
+		values += "?)";
+
+		PreparedStatement preparedStmt;
+		try {
+			preparedStmt = databaseConnection.prepareStatement(statement + values);
+			int j = 1;
+			for (String column: properties.keySet()){
+				preparedStmt.setObject(j, properties.get(column));
+				j++;
+			}
+	        
+			preparedStmt.execute();	
+		} catch (SQLException e) {
+			throw new DatabaseException(e);
+		}
 	}
 
 	private Connection connectToDatabase() throws DatabaseException {
