@@ -1,10 +1,11 @@
 package mongo;
 
+import java.util.List;
 import java.util.Map;
 
 import main.DatabaseException;
-import main.DatabaseObject;
 import main.IDatabaseConnection;
+import main.DatabaseObject;
 import mysql.MySqlColumnType;
 
 public class MongoDatabaseConnection implements IDatabaseConnection{
@@ -16,9 +17,9 @@ public class MongoDatabaseConnection implements IDatabaseConnection{
 	}
 
 	@Override
-	public void query(final String query) {
+	public List<DatabaseObject> query(final String query) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package main;
 
+import java.util.List;
 import java.util.Map;
 
 import mysql.MySqlColumnType;
@@ -21,7 +22,7 @@ public interface IDatabaseConnection {
 	 * @param query
 	 * @throws DatabaseException
 	 */
-	public void query(String query) throws DatabaseException;
+	public List<DatabaseObject> query(String query) throws DatabaseException;
 	
 	/**
 	 * Persist an object in a table
