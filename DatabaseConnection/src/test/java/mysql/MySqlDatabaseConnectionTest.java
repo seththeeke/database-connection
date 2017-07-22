@@ -1,4 +1,4 @@
-package test.java.mysql;
+package mysql;
 
 import java.sql.Connection;
 
@@ -7,11 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import main.java.database.IDatabaseConnection;
-import main.java.mysql.MySqlDatabaseConnection;
+import database.IDatabaseConnection;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MySqlDatabaseConnectionTest {
@@ -24,9 +22,6 @@ public class MySqlDatabaseConnectionTest {
 
 	@Before
 	public void before(){
-		this.mySqlDatabaseConnection = Mockito.spy(new MySqlDatabaseConnection("", "", ""));
-		
-		Mockito.doReturn(this.connection).when(this.mySqlDatabaseConnection);
 	}
 	
 	@After

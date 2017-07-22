@@ -1,4 +1,4 @@
-package main.java.database;
+package database;
 
 import java.util.Map;
 
@@ -18,7 +18,7 @@ public class DatabaseObject {
 		return this.rowProperties;
 	}
 	
-	public String toString(){
+	public String printObject(){
 		StringBuilder builder = new StringBuilder();
 		for (String key: this.rowProperties.keySet()){
 			builder.append(key + " ==> " + this.rowProperties.get(key)).append("\n");

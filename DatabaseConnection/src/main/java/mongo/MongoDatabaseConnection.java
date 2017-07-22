@@ -1,12 +1,12 @@
-package main.java.mongo;
+package mongo;
 
 import java.util.List;
 import java.util.Map;
 
-import main.java.database.DatabaseException;
-import main.java.database.DatabaseObject;
-import main.java.database.IDatabaseConnection;
-import main.java.mysql.MySqlColumnType;
+import database.DatabaseException;
+import database.DatabaseObject;
+import database.IDatabaseConnection;
+import mysql.MySqlColumnType;
 
 public class MongoDatabaseConnection implements IDatabaseConnection{
 

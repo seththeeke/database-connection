@@ -1,9 +1,9 @@
-package main.java.database;
+package database;
 
 import java.util.List;
 import java.util.Map;
 
-import main.java.mysql.MySqlColumnType;
+import mysql.MySqlColumnType;
 
 public interface IDatabaseConnection {
 	
