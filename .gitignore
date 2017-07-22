@@ -28,3 +28,5 @@ DatabaseConnection/.settings/*
 DatabaseConnectionRI/.settings/*
 DatabaseConnection/build/*
 DatabaseConnectionRI/build/*
+DatabaseConnection/bin/*
+DatabaseConnectionRI/bin/*

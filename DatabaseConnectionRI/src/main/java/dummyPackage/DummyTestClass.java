@@ -55,24 +55,24 @@ public class DummyTestClass {
 		
 		List<DatabaseObject> objects = mySqlConnection.query("select * from pets");
 		for (DatabaseObject object: objects){
-			System.out.println(object.toString());
+			System.out.println(object.printObject());
 		}
 		
 		objects = mySqlConnection.query("select * from people");
 		for (DatabaseObject object: objects){
-			System.out.println(object.toString());
+			System.out.println(object.printObject());
 		}
 
 		objects = mySqlConnection.query("select name from pets order by name");
 		for (DatabaseObject object: objects){
-			System.out.println(object.toString());
+			System.out.println(object.printObject());
 		}
 	}
 
 	private static IDatabaseConnection getMySqlDatabaseConnection() throws IOException {
 		Properties properties = new Properties();
 		
-		InputStream input = new FileInputStream("resources/mysql.properties");
+		InputStream input = new FileInputStream("src/main/resources/mysql.properties");
 		properties.load(input);
 		
 		final String dbProtocol = properties.getProperty("databaseProtocol");
@@ -90,7 +90,7 @@ public class DummyTestClass {
 	private static IDatabaseConnection getPostgresDatabaseConnection() throws IOException {
 		Properties properties = new Properties();
 		
-		InputStream input = new FileInputStream("resources/postgres.properties");
+		InputStream input = new FileInputStream("src/main/resources/postgres.properties");
 		properties.load(input);
 		
 		final String dbProtocol = properties.getProperty("databaseProtocol");
