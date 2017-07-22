@@ -1,4 +1,4 @@
-package mysql;
+package main.java.mysql;
 
 public enum MySqlColumnType {
 	DOUBLE ("DOUBLE"),

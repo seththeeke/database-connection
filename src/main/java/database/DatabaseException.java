@@ -1,4 +1,4 @@
-package main;
+package main.java.database;
 
 public class DatabaseException extends Throwable{
 	

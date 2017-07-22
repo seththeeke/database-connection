@@ -1,4 +1,4 @@
-package mysql;
+package main.java.mysql;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import main.DatabaseException;
-import main.DatabaseObject;
-import main.IDatabaseConnection;
+import main.java.database.DatabaseException;
+import main.java.database.DatabaseObject;
+import main.java.database.IDatabaseConnection;
 
 import java.sql.Connection;
 

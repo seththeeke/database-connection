@@ -1,4 +1,4 @@
-package mysql;
+package test.java.mysql;
 
 import java.sql.Connection;
 
@@ -10,7 +10,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import main.IDatabaseConnection;
+import main.java.database.IDatabaseConnection;
+import main.java.mysql.MySqlDatabaseConnection;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MySqlDatabaseConnectionTest {

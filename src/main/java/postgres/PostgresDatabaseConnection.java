@@ -1,4 +1,4 @@
-package postgres;
+package main.java.postgres;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import main.DatabaseException;
-import main.IDatabaseConnection;
-import main.DatabaseObject;
-import mysql.MySqlColumnType;
+import main.java.database.DatabaseException;
+import main.java.database.DatabaseObject;
+import main.java.database.IDatabaseConnection;
+import main.java.mysql.MySqlColumnType;
 
 public class PostgresDatabaseConnection implements IDatabaseConnection{
 	
