@@ -14,13 +14,11 @@ import database.DatabaseObject;
 import database.IDatabaseConnection;
 import mysql.MySqlColumnType;
 import mysql.MySqlDatabaseConnection;
-import postgres.PostgresDatabaseConnection;
 
 public class DummyTestClass {
 
 	public static void main(String[] args) throws IOException, DatabaseException, ClassNotFoundException {
 		IDatabaseConnection mySqlConnection = getMySqlDatabaseConnection();
-		IDatabaseConnection postgresConnection = getPostgresDatabaseConnection();
 		
 		Map<String, MySqlColumnType> peopleColumns = new HashMap<>();
 		peopleColumns.put("first_name", MySqlColumnType.STRING);
@@ -85,24 +83,6 @@ public class DummyTestClass {
 		final String dbPassword = properties.getProperty("databasePassword");
 			
 		return new MySqlDatabaseConnection(dbConnection, dbUsername, dbPassword);
-	}
-	
-	private static IDatabaseConnection getPostgresDatabaseConnection() throws IOException {
-		Properties properties = new Properties();
-		
-		InputStream input = new FileInputStream("src/main/resources/postgres.properties");
-		properties.load(input);
-		
-		final String dbProtocol = properties.getProperty("databaseProtocol");
-		final String dbHost = properties.getProperty("databaseHost");
-		final String dbPort = properties.getProperty("databasePort");
-		final String dbName = properties.getProperty("databaseName");
-		final String dbConnection = dbProtocol + "://" + dbHost + ":" + dbPort + "/" + dbName;
-		
-		final String dbUsername = properties.getProperty("databaseUsername");
-		final String dbPassword = properties.getProperty("databasePassword");
-			
-		return new PostgresDatabaseConnection(dbConnection, dbUsername, dbPassword);
 	}
 
 }
